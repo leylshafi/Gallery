@@ -19,8 +19,9 @@ namespace Source.Views;
 
 public partial class MainWindow : Window
 {
-    //Edit Views
-    //Edit About
+    //EditViews
+    //DragDrop
+    //Play stop
 
     public ObservableCollection<ImageCl> Images { get; set; } = new();
     public MainWindow()
@@ -39,27 +40,55 @@ public partial class MainWindow : Window
 
     private void MenuItem_Click(object sender, RoutedEventArgs e)
     {
-        MessageBox.Show("Test");
+        MessageBox.Show("Gallery is created by Leyla Shafiyeva","Information",MessageBoxButton.OK,MessageBoxImage.Information);
     }
 
     private void Label_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
-       MessageBox.Show("ImageName");
-    }
-
-    private void MenuItem_Click_1(object sender, RoutedEventArgs e)
-    {
-        if(sender is  MenuItem mi)
+        if(sender is Label lb)
         {
-            if(mi.Header.ToString()=="Exit")
-                Application.Current.Shutdown();
-            else MessageBox.Show("Will be update soon", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            var source=lb.Tag;
+            foreach (ImageCl image in Images)
+            {
+                if(source.ToString().Contains(image.ImageUrl))
+                {
+                    WatchImages watchImages = new WatchImages(image);
+                    watchImages.ShowDialog();
+                }
+            }
         }
-        
     }
 
     private void menuItem1_Click_1(object sender, RoutedEventArgs e)
     {
+        // //Edit Views
+    }
 
+    private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+    {
+        if (sender is MenuItem mi)
+        {
+            if (mi.Header.ToString() == "Exit")
+                Application.Current.Shutdown();
+            else MessageBox.Show("Will be update soon", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+    }
+
+    private void DropFileSP_Drop(object sender, DragEventArgs e)
+    {
+        if(e.Data.GetDataPresent(DataFormats.FileDrop))
+        {
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+            ImageCl newimg = new()
+            {
+                ImageUrl = files[0],
+                ImageName = "Name"
+            };
+            Images.Add(newimg);
+
+            itms.Items.Add(newimg);
+            MessageBox.Show(files[0]);
+
+        }
     }
 }

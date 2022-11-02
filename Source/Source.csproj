@@ -10,7 +10,12 @@
   <ItemGroup>
     <None Remove="StaticFiles\Images\6021440cc24d4.png" />
     <None Remove="StaticFiles\Images\gallery.png" />
+    <None Remove="StaticFiles\Images\icons8-go-back-80.png" />
+    <None Remove="StaticFiles\Images\icons8-last-100.png" />
     <None Remove="StaticFiles\Images\icons8-list-view-100.png" />
+    <None Remove="StaticFiles\Images\icons8-pause-button-100.png" />
+    <None Remove="StaticFiles\Images\icons8-play-button-circled-90.png" />
+    <None Remove="StaticFiles\Images\icons8-previous-100.png" />
     <None Remove="StaticFiles\Images\icons8-widescreen-52.png" />
     <None Remove="StaticFiles\Images\img1.jpg" />
     <None Remove="StaticFiles\Images\img2.jpg" />
@@ -20,6 +25,13 @@
     <None Remove="StaticFiles\Images\img6.jpg" />
     <None Remove="StaticFiles\Images\img7.jpg" />
     <None Remove="StaticFiles\Images\img8.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="StaticFiles\Images\icons8-last-100.png" />
+    <Resource Include="StaticFiles\Images\icons8-pause-button-100.png" />
+    <Resource Include="StaticFiles\Images\icons8-play-button-circled-90.png" />
+    <Resource Include="StaticFiles\Images\icons8-previous-100.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,6 +45,7 @@
     <Resource Include="StaticFiles\Images\gallery.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="StaticFiles\Images\icons8-go-back-80.png" />
     <Resource Include="StaticFiles\Images\icons8-list-view-100.png" />
     <Resource Include="StaticFiles\Images\icons8-widescreen-52.png" />
     <Resource Include="StaticFiles\Images\img1.jpg">

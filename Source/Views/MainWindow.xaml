@@ -17,6 +17,13 @@
             <Image Width="70" Height="60" HorizontalAlignment="Left" Margin="5 0 0 0" Source="/StaticFiles/Images/gallery.png" Stretch="Uniform"></Image>
             <Label VerticalAlignment="Center" FontSize="25" FontFamily="Bell MT" Foreground="#FF264F7D"> Gallery</Label>
         </StackPanel>
+        <StackPanel x:Name="DropFileSP" 
+                    HorizontalAlignment="Right"
+                    Width="400" 
+                    AllowDrop="True"
+                    Drop="DropFileSP_Drop">
+            <Label Width="300" Height="50" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">Drop files here</Label>
+        </StackPanel>
         <Menu Grid.Row="1" Background="Transparent" FontSize="22" Foreground="#FF264F7D">
             <MenuItem  Header="File">
                 <MenuItem Header="Save" Click="MenuItem_Click_1"></MenuItem>
@@ -51,7 +58,7 @@
                             <Image x:Name="img" Source="{Binding ImageUrl}" Height="200" Width="{Binding RelativeSource={RelativeSource
 FindAncestor, AncestorType={x:Type ItemsControl}},
 Path=Width}" Margin="20 40 20 0" ></Image>
-                        <Label FontSize="20" Content="{Binding ImageName}" FontFamily="Bell MT" Foreground="#FF264F7D" HorizontalAlignment="Center" MouseDoubleClick="Label_MouseDoubleClick" ></Label>
+                        <Label FontSize="20" Content="{Binding ImageName}" Tag="{Binding ElementName=img, Path=Source}" FontFamily="Bell MT" Foreground="#FF264F7D" HorizontalAlignment="Center" MouseDoubleClick="Label_MouseDoubleClick" ></Label>
                         </StackPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
