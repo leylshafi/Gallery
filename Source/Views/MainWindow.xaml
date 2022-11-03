@@ -35,7 +35,7 @@
                 <MenuItem Name="menuItem1" Header="Large Icons" Click="menuItem1_Click_1" >
                     <MenuItem.Icon>
                         <Image Source="/StaticFiles/Images/icons8-widescreen-52.png"></Image>
-                     </MenuItem.Icon>
+                    </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Header="Small Icons" Click=" menuItem1_Click_1">
                     <MenuItem.Icon>
@@ -47,10 +47,10 @@
                         <Image Source="/StaticFiles/Images/icons8-list-view-100.png"></Image>
                     </MenuItem.Icon>
                 </MenuItem>
-             </MenuItem>
+            </MenuItem>
             <MenuItem Header="About" Click="MenuItem_Click"></MenuItem>
         </Menu>
-        <ScrollViewer  Grid.Row="2" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Name="scrl" Grid.Row="2" VerticalScrollBarVisibility="Auto">
             <ItemsControl Name="itms" Margin="20">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
@@ -58,7 +58,7 @@
                             <Image x:Name="img" Source="{Binding ImageUrl}" Height="200" Width="{Binding RelativeSource={RelativeSource
 FindAncestor, AncestorType={x:Type ItemsControl}},
 Path=Width}" Margin="20 40 20 0" ></Image>
-                        <Label FontSize="20" Content="{Binding ImageName}" Tag="{Binding ElementName=img, Path=Source}" FontFamily="Bell MT" Foreground="#FF264F7D" HorizontalAlignment="Center" MouseDoubleClick="Label_MouseDoubleClick" ></Label>
+                            <Label FontSize="20" Content="{Binding ImageName}" Tag="{Binding ElementName=img, Path=Source}" FontFamily="Bell MT" Foreground="#FF264F7D" HorizontalAlignment="Center" MouseDoubleClick="Label_MouseDoubleClick" ></Label>
                         </StackPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
@@ -67,9 +67,7 @@ Path=Width}" Margin="20 40 20 0" ></Image>
                         <WrapPanel/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
-
             </ItemsControl>
         </ScrollViewer>
-
     </Grid>
 </Window>

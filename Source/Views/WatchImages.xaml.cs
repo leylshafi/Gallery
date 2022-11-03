@@ -1,8 +1,10 @@
-﻿using Source.Models;
+﻿using Microsoft.Win32;
+using Source.Models;
 using Source.Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -139,6 +141,20 @@ namespace Source.Views
         {
             this.Close();
            
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.Filter = "Text Files|*.txt";
+
+            if (openFileDialog1.ShowDialog()==true)
+            {
+                Images.Add(new ImageCl()
+                {
+                    ImageUrl=openFileDialog1.FileName,
+                });
+            }
         }
     }
 }

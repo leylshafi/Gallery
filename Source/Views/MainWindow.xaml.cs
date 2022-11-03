@@ -1,4 +1,5 @@
-﻿using Source.Models;
+﻿using Microsoft.Win32;
+using Source.Models;
 using Source.Repository;
 using System;
 using System.Collections.Generic;
@@ -61,16 +62,51 @@ public partial class MainWindow : Window
 
     private void menuItem1_Click_1(object sender, RoutedEventArgs e)
     {
-        // //Edit Views
+        ///Edit
+        //if(sender is MenuItem mi)
+        //{
+        //    switch (mi.Header)
+        //    {
+        //        case "Large Icons":
+        //            itms.Width = 300;
+        //            break;
+        //        case "Small Icons":
+        //           MessageBox.Show(itms.Parent.ToString());
+                    
+        //            for (int i = 0; i < Images.Count; i++)
+        //            {
+        //                itms.Items.Add(Images[i]);
+        //            }
+
+
+        //            //itms.HorizontalAlignment = HorizontalAlignment.Right;
+
+        //            // itms.HorizontalAlignment = HorizontalAlignment.Left;
+        //            break;
+        //        case "List":
+        //            break;
+
+        //        default:
+        //            break;
+        //    }
+        //}
     }
 
     private void MenuItem_Click_1(object sender, RoutedEventArgs e)
     {
-        if (sender is MenuItem mi)
+        OpenFileDialog openFileDialog1 = new OpenFileDialog();
+
+        if (openFileDialog1.ShowDialog() == true)
         {
-            if (mi.Header.ToString() == "Exit")
-                Application.Current.Shutdown();
-            else MessageBox.Show("Will be update soon", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            Images.Add(new ImageCl()
+            {
+                ImageUrl = openFileDialog1.FileName,
+            });
+            itms.Items.Add(new ImageCl()
+            {
+                ImageUrl = openFileDialog1.FileName,
+            });
         }
     }
 
@@ -85,10 +121,7 @@ public partial class MainWindow : Window
                 ImageName = "Name"
             };
             Images.Add(newimg);
-
             itms.Items.Add(newimg);
-            MessageBox.Show(files[0]);
-
         }
     }
 }

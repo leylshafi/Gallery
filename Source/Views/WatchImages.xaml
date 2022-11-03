@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Source.Views"
         mc:Ignorable="d"
-        Title="WatchImages" Height="650" Width="800">
+        Title="WatchImages" Height="800" Width="800">
     <Grid  Background="#FFB9CDDC">
         <Grid.RowDefinitions>
             <RowDefinition Height="60px"/>
@@ -19,7 +19,7 @@
         <Menu Grid.Row="1" Background="Transparent" FontSize="22" Foreground="#FF264F7D">
             <MenuItem  Header="File" Click="MenuItem_Click_1" >
                 <MenuItem Header="Save"></MenuItem>
-                <MenuItem Header="New"></MenuItem>
+                <MenuItem Header="New" Click="MenuItem_Click"></MenuItem>
                 <Separator></Separator>
                 <MenuItem Header="Exit"></MenuItem>
             </MenuItem>
