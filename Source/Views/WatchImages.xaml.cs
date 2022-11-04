@@ -89,14 +89,42 @@ namespace Source.Views
 
             }
         }
+        CancellationTokenSource _tokenSource = null;
 
         private async void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            for (int i = 0; i < Images.Count; i++)
+            _tokenSource = new CancellationTokenSource();
+            var token = _tokenSource.Token;
+
+            int index = 0;
+            if (sender is Button btn)
+            {
+                for (int i = 0; i < Images.Count; i++)
+                {
+                    if (Images[i].ImageUrl == Selected.ImageUrl)
+                    {
+                        index = i;
+                        break;
+                    }
+                }
+            }
+                for (int i = index; i < Images.Count; i++)
             {
                 Selected = Images[i];
                 Images[i]= Selected;
                 await Task.Delay(1000);
+                if(_tokenSource.IsCancellationRequested)
+                {
+                    try
+                    {
+                        token.ThrowIfCancellationRequested();
+                    }
+                    catch (Exception)
+                    {
+                        return;
+                    }
+                   
+                }
             }
         }
 
@@ -104,6 +132,12 @@ namespace Source.Views
         {
             this.Close();
            
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            _tokenSource.Cancel();
+
         }
     }
 }
