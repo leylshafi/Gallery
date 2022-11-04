@@ -25,6 +25,9 @@ public partial class MainWindow : Window
     //Play stop
 
     public ObservableCollection<ImageCl> Images { get; set; } = new();
+
+
+    double width;
     public MainWindow()
     {
         InitializeComponent();
@@ -37,6 +40,7 @@ public partial class MainWindow : Window
         {
             itms.Items.Add(Images[i]);
         }
+        width = itms.Width;
     }
 
     private void MenuItem_Click(object sender, RoutedEventArgs e)
@@ -72,7 +76,7 @@ public partial class MainWindow : Window
         //            break;
         //        case "Small Icons":
         //           MessageBox.Show(itms.Parent.ToString());
-                    
+
         //            for (int i = 0; i < Images.Count; i++)
         //            {
         //                itms.Items.Add(Images[i]);
@@ -90,6 +94,26 @@ public partial class MainWindow : Window
         //            break;
         //    }
         //}
+        if (sender is MenuItem mi)
+        {
+            switch (mi.Header)
+            {
+                case "Large Icons":
+                    itms.Width = 300;
+                    break;
+                case "Small Icons":
+                    itms.Items.Clear();
+                    itms.Width = width;
+                    for (int i = 0; i < Images.Count; i++)
+                    {
+                        itms.Items.Add(Images[i]);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
     }
 
     private void MenuItem_Click_1(object sender, RoutedEventArgs e)
