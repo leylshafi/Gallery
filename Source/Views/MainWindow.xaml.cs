@@ -15,13 +15,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace Source.Views;
 
 public partial class MainWindow : Window
 {
-    //EditViews
-    //DragDrop
     //Play stop
 
     public ObservableCollection<ImageCl> Images { get; set; } = new();
@@ -55,9 +54,9 @@ public partial class MainWindow : Window
             var source=lb.Tag;
             foreach (ImageCl image in Images)
             {
-                if(source.ToString().Contains(image.ImageUrl))
+                if(source.ToString().Contains(System.IO.Path.GetFileName(image.ImageUrl)))
                 {
-                    WatchImages watchImages = new WatchImages(image);
+                    WatchImages watchImages = new WatchImages(image, Images);
                     watchImages.ShowDialog();
                 }
             }
@@ -66,34 +65,6 @@ public partial class MainWindow : Window
 
     private void menuItem1_Click_1(object sender, RoutedEventArgs e)
     {
-        ///Edit
-        //if(sender is MenuItem mi)
-        //{
-        //    switch (mi.Header)
-        //    {
-        //        case "Large Icons":
-        //            itms.Width = 300;
-        //            break;
-        //        case "Small Icons":
-        //           MessageBox.Show(itms.Parent.ToString());
-
-        //            for (int i = 0; i < Images.Count; i++)
-        //            {
-        //                itms.Items.Add(Images[i]);
-        //            }
-
-
-        //            //itms.HorizontalAlignment = HorizontalAlignment.Right;
-
-        //            // itms.HorizontalAlignment = HorizontalAlignment.Left;
-        //            break;
-        //        case "List":
-        //            break;
-
-        //        default:
-        //            break;
-        //    }
-        //}
         if (sender is MenuItem mi)
         {
             switch (mi.Header)
@@ -118,20 +89,38 @@ public partial class MainWindow : Window
 
     private void MenuItem_Click_1(object sender, RoutedEventArgs e)
     {
-        OpenFileDialog openFileDialog1 = new OpenFileDialog();
-
-        if (openFileDialog1.ShowDialog() == true)
+        if(sender is MenuItem mi)
         {
+            switch (mi.Header)
+            {
+                case "Save":
+                    MessageBox.Show("Saved Successfully","Information",MessageBoxButton.OK,MessageBoxImage.Information);
+                    break;
+                case "New":
+                    OpenFileDialog openFileDialog1 = new OpenFileDialog();
 
-            Images.Add(new ImageCl()
-            {
-                ImageUrl = openFileDialog1.FileName,
-            });
-            itms.Items.Add(new ImageCl()
-            {
-                ImageUrl = openFileDialog1.FileName,
-            });
+                    if (openFileDialog1.ShowDialog() == true)
+                    {
+
+                        Images.Add(new ImageCl()
+                        {
+                            ImageUrl = openFileDialog1.FileName,
+                        });
+                        itms.Items.Add(new ImageCl()
+                        {
+                            ImageUrl = openFileDialog1.FileName,
+                        });
+                    }
+                    break;
+                case "Exit":
+                    Application.Current.Shutdown();
+                    break;
+                default:
+                    break;
+            }
         }
+        
+        
     }
 
     private void DropFileSP_Drop(object sender, DragEventArgs e)
@@ -146,6 +135,7 @@ public partial class MainWindow : Window
             };
             Images.Add(newimg);
             itms.Items.Add(newimg);
+            //newimg.ImageUrl= System.IO.Path.GetFileName(files[0]);
         }
     }
 }

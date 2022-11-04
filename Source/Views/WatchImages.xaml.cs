@@ -32,17 +32,16 @@ namespace Source.Views
             set { SetValue(SelectedProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for Selected.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SelectedProperty =
             DependencyProperty.Register("Selected", typeof(ImageCl), typeof(WatchImages));
 
-        public WatchImages(ImageCl slc)
+        public WatchImages(ImageCl slc, ObservableCollection<ImageCl> imageList)
         {
             InitializeComponent();
             DataContext = this;
-            for (int i = 0; i < FakeRepository.images.Count; i++)
+            for (int i = 0; i < imageList.Count; i++)
             {
-                Images.Add(FakeRepository.images[i]);
+                Images.Add(imageList[i]);
             }
             Selected = slc;
         }
@@ -52,29 +51,20 @@ namespace Source.Views
             int index = 0;
             if (sender is Button btn)
             {
-
+                for (int i = 0; i < Images.Count; i++)
+                {
+                    if (Images[i].ImageUrl == Selected.ImageUrl)
+                    {
+                        index = i;
+                        break;
+                    }
+                }
                 switch (btn.Name)
                 {
                     case "next":
-                        for (int i = 0; i < Images.Count; i++)
-                        {
-                            if (Images[i].ImageUrl == Selected.ImageUrl)
-                            {
-                                index = i;
-                                break;
-                            }
-                        }
                         index++;
                         break;
                     case "prev":
-                        for (int i = 0; i < Images.Count; i++)
-                        {
-                            if (Images[i].ImageUrl == Selected.ImageUrl)
-                            {
-                                index = i;
-                                break;
-                            }
-                        }
                         index--;
                         break;
                     default:
@@ -82,10 +72,16 @@ namespace Source.Views
                 }
                 try
                 {
-                    Selected = Images[index];
+
+                    if(index<0)
+                        Selected=Images[Images.Count-1];
+                    else if(index== Images.Count)
+                        Selected=Images[0];
+                    else Selected = Images[index];
                 }
                 catch (Exception)
                 {
+                    
                     MessageBox.Show("There is no more image", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
@@ -94,67 +90,14 @@ namespace Source.Views
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            ////???????????
-            //if(sender is Button btn)
-            //{
-            //    btn.Name = "next";
-
-            //    for (int i = 0; i < 3; i++)
-            //    {
-            //        Selected = Images[i];
-            //    }
-            //}
-        }
-
-        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
-        {
-
-            if (sender is MenuItem mi)
-            {
-                if (mi.Header.ToString() == "Exit")
-                    Application.Current.Shutdown();
-                else MessageBox.Show("Will be update soon", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-        }
-
-        private void MenuItem_Click_3(object sender, RoutedEventArgs e)
-        {
-            // //Edit Views
-        }
-
-        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
-        {
-            if (sender is MenuItem mi)
-            {
-                if (mi.Header.ToString() == "Exit")
-                    Application.Current.Shutdown();
-                else MessageBox.Show("Will be update soon", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-        }
-
-        private void MenuItem_Click_4(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Gallery is created by Leyla Shafiyeva", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            //play
+            //MessageBox.Show("Xello xello");
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             this.Close();
            
-        }
-
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.Filter = "Text Files|*.txt";
-
-            if (openFileDialog1.ShowDialog()==true)
-            {
-                Images.Add(new ImageCl()
-                {
-                    ImageUrl=openFileDialog1.FileName,
-                });
-            }
         }
     }
 }
