@@ -17,12 +17,14 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Source.Views
 {
     public partial class WatchImages : Window
     {
         public ObservableCollection<ImageCl> Images { get; set; } = new();
+        bool isAutoPlayActice = false;
 
 
 
@@ -88,10 +90,14 @@ namespace Source.Views
             }
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private async void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            //play
-            //MessageBox.Show("Xello xello");
+            for (int i = 0; i < Images.Count; i++)
+            {
+                Selected = Images[i];
+                Images[i]= Selected;
+                await Task.Delay(1000);
+            }
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
